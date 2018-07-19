@@ -1,0 +1,55 @@
+package com.mdd.sso.controller;
+
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mdd.common.utils.MddResult;
+import com.mdd.pojo.TbUser;
+import com.mdd.sso.service.RegisterService;
+
+/**
+ * 注册处理Controller
+ * 
+ * @author CH
+ *
+ */
+@Controller
+public class RegisterController {
+
+	@Autowired
+	private RegisterService registerService;
+
+	@RequestMapping("/page/register")
+	public String showRegisterPage() {
+		return "register";
+	}
+
+	@RequestMapping("/user/check/{type}")
+	@ResponseBody
+	public MddResult check(@PathVariable int type, String param) {
+		// type=1:用户名，type=2:电话
+		try {
+			param = new String(param.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		MddResult result = registerService.check(param, type);
+		return result;
+	}
+
+	@RequestMapping("/user/register")
+	@ResponseBody
+	public MddResult register(TbUser user) {
+		MddResult result = registerService.register(user);
+		return result;
+	}
+}

@@ -1,0 +1,8 @@
+#cookie中购物车的key值
+CART=MDD_CART
+#用户信息在request中的key
+USER=MDD_USER
+#token标识,存到cookie中的服务器Session的id号
+TOKEN=MDD_TOKEN
+#单点登录系统url
+SSO_URL=http://localhost:8088

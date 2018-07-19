@@ -1,0 +1,8 @@
+#token标识,存到cookie中的服务器Session的id号
+TOKEN=MDD_TOKEN
+#购物车在cookie中的过期时间，默认6天
+COOKIE_CART_EXPIRE=518400
+#cookie中购物车的key值
+CART=MDD_CART
+#用户信息在request中的key
+USER=MDD_USER

@@ -1,0 +1,69 @@
+package com.mdd.sso.service.impl;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
+
+import com.mdd.common.jedis.JedisClient;
+import com.mdd.common.utils.JsonUtils;
+import com.mdd.common.utils.MddResult;
+import com.mdd.mapper.TbUserMapper;
+import com.mdd.pojo.TbUser;
+import com.mdd.pojo.TbUserExample;
+import com.mdd.pojo.TbUserExample.Criteria;
+import com.mdd.sso.service.LoginService;
+
+/**
+ * 登录处理Service
+ * 
+ * @author CH
+ *
+ */
+@Service
+public class LoginServiceImpl implements LoginService {
+        
+	@Autowired
+	private JedisClient jedisClient;
+
+	@Autowired
+	private TbUserMapper userMapper;
+
+	@Value("${SESSION_ID_PREFIX}")
+	private String SESSION_ID_PREFIX;
+
+	@Value("${SESSION_EXPIRE}")
+	private int SESSION_EXPIRE;
+
+	@Override
+	public MddResult login(String username, String password) {
+		// 校验数据
+		TbUserExample example = new TbUserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUsernameEqualTo(username);
+		List<TbUser> list = userMapper.selectByExample(example);
+		if (list == null || list.size() < 1) {
+			return MddResult.build(400, "用户名或密码错误！");
+		}
+
+		TbUser user = list.get(0);
+		// md5加密
+		String md5pw = DigestUtils.md5DigestAsHex(password.getBytes());
+		if (!md5pw.equals(user.getPassword())) {
+			return MddResult.build(400, "用户名或密码错误！");
+		}
+
+		// redis中不需要存密码,因为页面只需要显示用户名
+		user.setPassword(null);
+		// 生成token，返回给web层
+		String token = UUID.randomUUID().toString();
+		// 用redis模拟Session
+		jedisClient.set(SESSION_ID_PREFIX+":"+token, JsonUtils.objectToJson(user));
+        jedisClient.expire(SESSION_ID_PREFIX+":"+token, SESSION_EXPIRE);
+		
+		return MddResult.ok(token);
+	}
+}

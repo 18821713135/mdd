@@ -1,0 +1,2 @@
+#token标识,存到cookie中的服务器Session的id号
+TOKEN=MDD_TOKEN

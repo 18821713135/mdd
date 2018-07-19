@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mdd.search.mapper.SearchItemMapper">
+	<select id="selectAllSearchItems"
+		resultType="com.mdd.common.pojo.SearchItem">
+		select tb_item.id id, title,tb_item.sell_point sellPoint,
+		price, image, tb_item_cat.name categoryName
+		from tb_item, tb_item_cat
+		where tb_item.cid=tb_item_cat.id and where tb_item.status = 1
+	</select>
+</mapper>

@@ -1,0 +1,5 @@
+com\mdd\sso\controller\LoginController.class
+com\mdd\sso\controller\RegisterController.class
+com\mdd\sso\controller\ImageController.class
+com\mdd\sso\controller\TokenController.class
+com\mdd\sso\controller\RegisterController$1.class

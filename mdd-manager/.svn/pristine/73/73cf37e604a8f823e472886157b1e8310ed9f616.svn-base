@@ -1,0 +1,208 @@
+package com.mdd.service.impl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.mdd.common.jedis.JedisClient;
+import com.mdd.common.pojo.EasyUIDataGridResult;
+import com.mdd.common.utils.MddResult;
+import com.mdd.common.utils.IDUtils;
+import com.mdd.common.utils.JsonUtils;
+import com.mdd.mapper.TbItemDescMapper;
+import com.mdd.mapper.TbItemMapper;
+import com.mdd.pojo.TbItem;
+import com.mdd.pojo.TbItemDesc;
+import com.mdd.pojo.TbItemExample;
+import com.mdd.service.ItemService;
+
+/**
+ * 商品管理Service
+ * 
+ * @author CH
+ *
+ */
+@Service
+public class ItemServiceImpl implements ItemService {
+
+	@Autowired
+	private TbItemMapper itemMapper;
+
+	@Autowired
+	private TbItemDescMapper itemDescMapper;
+
+	@Autowired
+	private JedisClient jedisClient;
+
+	@Value("${ITEM_PREFIX}")
+	private String ITEM_PREFIX;
+
+	@Value("${ITEM_EXPIRE}")
+	private int ITEM_EXPIRE;
+
+	/**
+	 * 该方法主要被前台调用，应该加上缓存以减少数据库压力
+	 */
+	public TbItem getItemById(Long id) {
+		// 先在缓存中查询
+		TbItem item = null;
+		String json = jedisClient.get(ITEM_PREFIX + ":" + id + ":BASE");
+		if (StringUtils.isNoneBlank(json)) {
+			item = JsonUtils.jsonToPojo(json, TbItem.class);
+			return item;
+		}
+		// 缓存中没有，再查数据库
+		item = itemMapper.selectByPrimaryKey(id);
+		// 将查到的数据加到缓存中
+		if (item != null) {
+			json = JsonUtils.objectToJson(item);
+			jedisClient.set(ITEM_PREFIX + ":" + id + ":BASE", json);
+			// 设置过期时间
+			jedisClient.expire(ITEM_PREFIX + ":" + id + ":BASE", ITEM_EXPIRE);
+		}
+
+		return item;
+	}
+
+	/**
+	 * 该方法主要被前台调用，应该加上缓存以减少数据库压力
+	 */
+	@Override
+	public TbItemDesc getItemDescById(long id) {
+		TbItemDesc itemDesc = null;
+		String json = jedisClient.get(ITEM_PREFIX + ":" + id + ":DESC");
+		if (StringUtils.isNoneBlank(json)) {
+			itemDesc = JsonUtils.jsonToPojo(json, TbItemDesc.class);
+			return itemDesc;
+		}
+
+		itemDesc = itemDescMapper.selectByPrimaryKey(id);
+
+		if (itemDesc != null) {
+			json = JsonUtils.objectToJson(itemDesc);
+			jedisClient.set(ITEM_PREFIX + ":" + id + ":DESC", json);
+			// 设置过期时间
+			jedisClient.expire(ITEM_PREFIX + ":" + id + ":DESC", ITEM_EXPIRE);
+		}
+
+		return itemDesc;
+	}
+
+	@Override
+	public EasyUIDataGridResult getItemList(int page, int rows) {
+		// 设置分页信息
+		PageHelper.startPage(page, rows);
+		// 执行查询
+		TbItemExample example = new TbItemExample();
+		List<TbItem> list = itemMapper.selectByExample(example);
+		// 取分页信息
+		PageInfo<TbItem> pageInfo = new PageInfo<TbItem>(list);
+		// 创建返回结果对象
+		EasyUIDataGridResult result = new EasyUIDataGridResult();
+		result.setTotal(pageInfo.getTotal());
+		result.setRows(list);
+
+		return result;
+	}
+
+	@Override
+	public MddResult addItem(TbItem item, String desc) {
+		// 1、生成商品id
+		long itemId = IDUtils.genItemId();
+		// 2、补全TbItem对象的属性
+		item.setId(itemId);
+		// 商品状态，1-正常，2-下架，3-删除
+		item.setStatus((byte) 1);
+		Date date = new Date();
+		item.setCreated(date);
+		item.setUpdated(date);
+		// 3、向商品表插入数据
+		itemMapper.insert(item);
+		// 4、创建一个TbItemDesc对象
+		TbItemDesc itemDesc = new TbItemDesc();
+		// 5、补全TbItemDesc的属性
+		itemDesc.setItemId(itemId);
+		itemDesc.setItemDesc(desc);
+		itemDesc.setCreated(date);
+		itemDesc.setUpdated(date);
+		// 6、向商品描述表插入数据
+		itemDescMapper.insert(itemDesc);
+		// 7、E3Result.ok()
+		return MddResult.ok();
+	}
+
+	@Override
+	public MddResult updateItem(TbItem item, String desc) {
+		// 商品状态，1-正常，2-下架，3-删除
+		// item.setStatus((byte) 1);
+		// 更新商品修改时间
+		item.setUpdated(new Date());
+		// 更新商品表
+		itemMapper.updateByPrimaryKeySelective(item);
+
+		TbItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(item.getId());
+		itemDesc.setItemDesc(desc);
+		itemDesc.setUpdated(new Date());
+		// 更新商品描述表
+		itemDescMapper.updateByPrimaryKeySelective(itemDesc);
+
+		return MddResult.ok();
+	}
+
+	@Override
+	public MddResult getItemDesc(long id) {
+		TbItemDesc itemDesc = itemDescMapper.selectByPrimaryKey(id);
+		return MddResult.ok(itemDesc);
+	}
+
+	/**
+	 * 商品下架
+	 */
+	@Override
+	public MddResult instockItems(long[] ids) {
+		// 商品状态，1-正常，2-下架，3-删除
+		for (long id : ids) {
+			TbItem item = itemMapper.selectByPrimaryKey(id);
+			if (item.getStatus() != 2) {
+				item.setStatus((byte) 2);
+				item.setUpdated(new Date());
+				itemMapper.updateByPrimaryKeySelective(item);
+			}
+		}
+
+		return MddResult.ok();
+	}
+
+	/**
+	 * 商品上架
+	 */
+	@Override
+	public MddResult reshelfItems(long[] ids) {
+		// 商品状态，1-正常，2-下架，3-删除
+		for (long id : ids) {
+			TbItem item = itemMapper.selectByPrimaryKey(id);
+			if (item.getStatus() != 1) {
+				item.setStatus((byte) 1);
+				item.setUpdated(new Date());
+				itemMapper.updateByPrimaryKeySelective(item);
+			}
+		}
+
+		return MddResult.ok();
+	}
+
+	@Override
+	public MddResult deleteItems(long[] ids) {
+		for (long id : ids) {
+			itemMapper.deleteByPrimaryKey(id);
+			itemDescMapper.deleteByPrimaryKey(id);
+		}
+		return MddResult.ok();
+	}
+}

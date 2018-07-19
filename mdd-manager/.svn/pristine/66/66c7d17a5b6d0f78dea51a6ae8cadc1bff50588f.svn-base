@@ -1,0 +1,27 @@
+package com.mdd.service;
+
+import com.mdd.common.pojo.EasyUIDataGridResult;
+import com.mdd.common.utils.MddResult;
+import com.mdd.pojo.TbItem;
+import com.mdd.pojo.TbItemDesc;
+
+public interface ItemService {
+
+	public TbItem getItemById(Long id);
+
+	public EasyUIDataGridResult getItemList(int page, int rows);
+
+	public MddResult addItem(TbItem item, String desc);
+	
+	public MddResult updateItem(TbItem item, String desc);
+	
+	public MddResult getItemDesc(long id);
+	
+	public TbItemDesc getItemDescById(long id);
+	
+	public MddResult instockItems(long[] ids);
+	
+	public MddResult reshelfItems(long[] ids);
+	
+	public MddResult deleteItems(long[] ids);
+}

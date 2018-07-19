@@ -1,0 +1,3 @@
+com\mdd\search\dao\SearchItemDao.class
+com\mdd\search\mapper\SearchItemMapper.class
+com\mdd\search\service\impl\SearchServiceImpl.class

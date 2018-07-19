@@ -1,0 +1,4 @@
+#Session的ID前缀
+SESSION_ID_PREFIX=MDD_SESSION
+#Session过期时间，默认半个小时
+SESSION_EXPIRE=1800

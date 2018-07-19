@@ -1,0 +1,41 @@
+.top {float:left;width: 100%;margin:auto;height:45px;border-bottom:2px solid #e3101e;background-color: #fff;}
+.top ul{width:1200px;margin:auto;}
+.top ul li{float: left;width: 100px;font:normal 15px Microsoft YaHei;text-align:center;padding-top:12px;}
+.top ul li a{text-decoration: none;color:#666;text-align:center;}
+.top ul li a:hover{text-decoration: none;color:#e3101e;}
+.top .top_miaosha {width: 120px;font-size: 20px;color:#333;font-weight:bold;padding-top:8px;}
+.top .top_miaosha a{text-decoration: none;color:#333;}
+#top_miaosha_first {width: 120px;background-color: #e01222;color:#fff;height:45px;font-weight:bold;font-size: 20px;padding-top:8px;}
+#top_miaosha_first a{text-decoration: none;color:#fff;}
+.title_miaosha{float:left;background-color: #f6f6f6;width:100%;}
+
+.main_list {position:relative;height:60px;margin: 135px auto auto auto;width:1200px;background-color: #f6f6f6;}
+.timer_miaosha{float:left;margin:auto;}
+.timer_miaosha ul li{float:left;width:235px;height:60px;text-align:center;}
+
+.timer_miaosha #active{float:left;width:260px;height:60px;text-align:center;color:#fff;position: relative;z-index: 2;}
+.timer_miaosha #active:before{background-color: #e01222;content:'';position: absolute;top: 0;right:0;bottom:0;left:0;transform: skewX(-45deg);z-index: -1;}
+.timer_miaosha #active .timer_h{float:left;width:85px;font-size: 22px;font-weight: bold;margin:15px 0 0 25px;}
+.timer_miaosha #active p{float:right;margin:10px 40px 0 0px;;font-size:15px;font-weight: bold;}
+.timer_miaosha .ready_active {float:left;width:235px;height:60px;text-align:center;color:#333;position: relative;z-index: 2;}
+.timer_miaosha .ready_active:before{content:'';position: absolute;top: 0;right:0;bottom:0;left:0;transform: skewX(-45deg);z-index: -1;}
+.timer_miaosha .ready_active .timer_ready_h {float:left;margin:20px 0 0 40px;font-size:16px;font-weight:bold;}
+.timer_miaosha .ready_active .timer_ready_but {color:#666;float:left;margin:16px 0 0 40px;font-size:12px;border:1px solid #666;border-radius: 22px;padding:3px 5px;}
+
+
+.goods_list ul li {float:left;height:370px;width:290px;margin:20px 10px 0 0;}
+.goods_list ul li a{color:#333;text-decoration: none;}
+.goods_list ul li a:hover{color:#e01222;text-decoration: none;}
+.goods_list ul li img{width:230px;height:230px;margin:0 30px;}
+.goods_list ul li p{width:230px;height:36px;margin:20px 30px 10px 30px;font:normal 13px Microsoft YaHei;overflow: hidden;}
+.goods_list .miaosha_price{height:60px;width:279px;margin:0 5px;}
+.goods_list .miaosha_price_left{float:left;width:180px; height:60px;border:1px solid #e01222;background-color: #fff;}
+.goods_list .miaosha_price_left .price{float:left;margin:4px 10px 0 10px;}
+.goods_list .miaosha_price_left span{color:#e01222;}
+.goods_list .miaosha_price_left strong{color:#e01222;font-size: 19px;}
+.goods_list .miaosha_price_left span s{margin-left:30px;color:#999;font-size:14px;}
+.goods_list .miaosha_price_left .quantity p{width:50px;height:20px;float:left;margin:5px 10px 0 10px;color:#999;font-size: 12px;}
+.goods_list .miaosha_price_left .quantity .quantity_sell{float:left;width:80px;height:12px;background-color: #999;margin:8px 0 0 0;z-index: 4;}
+.goods_list .miaosha_price_left .quantity .quantity_surplus{float:left;width:0%;background-color: #e01222;z-index: 999;height:12px;}
+.goods_list .miaosha_price_right{float:right;width:99px; height:60px;text-align: center;background-color: #e01222;color:#fff;border:1px solid #e01222;}
+.goods_list .miaosha_price_right p{font-size:19px;width:100px;margin:18px 0 0 0;}

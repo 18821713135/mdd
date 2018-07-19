@@ -1,0 +1,3 @@
+com\mdd\sso\service\RegisterService.class
+com\mdd\sso\service\TokenService.class
+com\mdd\sso\service\LoginService.class

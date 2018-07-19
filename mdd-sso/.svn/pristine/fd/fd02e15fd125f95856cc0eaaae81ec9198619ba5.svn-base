@@ -1,0 +1,4 @@
+com\mdd\sso\service\impl\TokenServiceImpl.class
+com\mdd\sso\service\impl\ImageServiceImpl.class
+com\mdd\sso\service\impl\RegisterServiceImpl.class
+com\mdd\sso\service\impl\LoginServiceImpl.class

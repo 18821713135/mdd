@@ -1,0 +1,194 @@
+
+.jum{background-color: rgb(232, 54, 50);}
+.jum h1,h2,p,div{color:white;text-align: center;}
+.jum h1{font-size: 20px;}
+.v2a{color:grey; -webkit-transition:all .3s ease-out;}
+.v3a{-webkit-transition:all .3s ease-out;}
+
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:900");
+h1 {
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #F6F4F3;
+}
+
+#timer {
+  color: #F6F4F3;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Microsoft Yahei;
+  font-size: 7px;
+  letter-spacing: 5px;
+}
+
+.hours, .minutes, .seconds {
+  display: inline-block;
+  padding: 2px;
+  width: 33px;
+  height: 30px;
+  border-radius: 10%;
+  line-height: normal;
+}
+
+.days {
+  background: #EF2F3C;
+}
+
+.hours {
+  /* background: #F6F4F3; */
+  background: #F6F4F3;
+}
+
+.minutes {
+  /* background: #276FBF; */
+  background: #F6F4F3;
+}
+
+.seconds {
+  /* background: #F0A202; */
+  background: #F6F4F3;
+}
+
+.numbers {
+  font-family: "Montserrat", sans-serif;
+  color: #183059;
+  font-size: 20px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-transform: uppercase;
+  padding: 10px;
+  font-family: "Lato", sans-serif;
+  font-size: 7px;
+}
+footer p {
+  letter-spacing: 3px;
+  color: #EF2F3C;
+}
+footer a {
+  color: #F6F4F3;
+  text-decoration: none;
+}
+footer a:hover {
+  color: #276FBF;
+}
+
+.sk_center{
+  float:left;
+  width:985px;
+  height:300px;
+  margin-left: 15px;
+}
+.sk_center_li{
+  float:left;
+  width:195px;
+  height:290px;
+  margin:5px 0 0 0;
+  text-align: center;
+  background-color: #FFFFFF;
+  margin-right: 2px;
+  border-radius: 2%;
+}
+.sk_center_li:hover{
+  text-decoration: none;
+}
+.sk_img{
+  height: 140px;
+  width: 140px;
+  margin:40px 10px 20px 10px;
+  cursor: pointer;
+  transition: all 0.6s;
+}
+.sk_img:hover{
+  transform: scale(1.3);
+}
+
+.sk_img_h5{
+  text-align: center;
+  color:#A6A6A6;
+  width:180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight:normal;
+  font-size:15px;
+  font-family:Microsoft YaHei;
+  margin-left: 10px;
+}
+.sk_img_h5:hover{
+  color: #B22222;
+  text-decoration: none;
+}
+.sk_price{
+  display: inline-block;
+  vertical-align: middle;
+  height: 30px;
+  width: 180px;
+  border: 1px solid #CD2626;
+  margin: 0px 10px;
+}
+.sk_price_left{
+  float: left;
+  height: 30px;
+  width: 89px;
+  background-color: rgb(232, 54, 50);
+  text-align: center;
+  font-weight: bold;
+  font-size:15px;
+  font-family: Microsoft YaHei;
+  line-height: 30px;
+}
+.sk_price_right{
+  float: left;
+  height: 30px;
+  width: 89px;
+  text-align: center;
+  font-weight: bold;
+  font-size:15px;
+  font-family: Microsoft YaHei;
+  line-height: 30px;
+  color: #C7C7C7;
+}
+
+.nine{
+  width:30%;
+  height:30%;
+}
+
+.con_ul {width:1200px;height:600px;}
+.con_li {width:390px;height:600px;float:left;}
+.con_li_first {width:390px;height:45px;margin:0px;position:absolute;}
+.con_li_first h2 {font-size: 20px;position:relative;text-align:left;color:white;margin:11px 15px;width:100px;float:left;font-weight:bold;}
+.con_li_first p {font-size: 15px;position:relative;margin:13px 15px;float:right;width:100px;height: 26px;}
+.con_li_first a {color:white;text-decoration: none;}
+.con_li_first a:link {text-decoration: none;}
+.con_li_first a:hover {color:white}
+.con_li_second {width:392px;height:559px;position:relative;float:left;margin-top:45px;}
+.con_li_second li {width:194px;height:184px;float:left;margin-right:2px;margin-bottom: 2px;}
+.con_li_second img {width:194px;height:184px;transition: all 0.5s;}
+.con_li_second img:hover {transform: scale(1.02);}
+
+.con_li_second_again {width:392px;height:499px;position:relative;float:left;margin-top:45px;}
+.con_li_second_again li {width:194px;height:164px;float:left;margin-right:2px;margin-bottom: 2px;}
+.con_li_second_again img {margin:10px;width:166px;height:146px;transition: all 0.5s;}
+.con_li_second_again img:hover {transform: scale(1.13);}
+
+.con_second_header {width:1200px;height:0px;align:center;}
+.con_second_header h2 {width:1200px;height:25px;font-size: 28px;float:left;margin: 10px 0px;font-weight: bold;color: #F60;line-height: 0px;}
+.con_second_main {width:1200px;height:3750px;margin-top: 15px;}
+/* .con_second_main a {color: #333;} */
+.con_second_main a:link {text-decoration: none;}
+.con_second_main li {width:228px;height:300px;margin:6px;float:left;}
+.con_second_main img {width:150px;height:150px;margin-left: 45px;transition: all 0.5s;}
+.con_second_main img:hover {transform: scale(1.05);}
+.con_second_main_title {width:200px;height:50px;margin:15px 20px 5px 20px;overflow: hidden;font: 14px/22px "Microsoft Yahei","Hiragino Sans GB";line-height: 28px;color:#333;}
+.con_second_main_title:hover {color:#F40;}
+.con_second_main_price {color:#F40;margin: 10px 10px 10px 30px;font:bold 16px/18px "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";float:left;}
+.con_second_main_turn {color: #F60;position: relative;padding:2px 4px;height: 24px;border: 1px solid #f60;border-radius: 4px;top:4px;text-align: center;line-height: 20px;float:right;right:20px;}
